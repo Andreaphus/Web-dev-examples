@@ -1,0 +1,93 @@
+MVI A,01H
+LXI H,4200H
+MVI C,0AH
+loopy: MOV M,A
+INR A
+INX H
+DCR C
+JNZ loopy
+HLT
+
+MVI A,01H
+LXI H,7200H
+MVI C,32H
+loopy: MOV M,A
+INR A
+INX H	
+DCR C
+JNZ loopy
+HLT
+LXI H,2200H
+LXI B,2300H
+MVI D,32H
+snoopy: MOV A,M
+ANI 01H
+JNZ loopy
+MOV A,M
+STAX B
+INX B
+loopy: INX H
+DCR D
+JNZ snoopy
+HLT
+
+LXI H,2200H
+LXI B,2300H
+MVI D,32H
+snoopy: MOV A,M
+ANI 01H
+JZ loopy
+MOV A,M
+STAX B
+INX B
+loopy: INX H
+DCR D
+JNZ snoopy
+HLT
+
+MVI B,00H
+MVI C,01H
+MVI D,0AH
+loopy: MOV A,B
+ADD C
+MOV H,A
+LXI h,3000H
+MOV B,C
+DCR D
+JNZ loopy
+hlt
+
+LXI H,3000H
+MVI B,00H
+MVI D,14H
+MOV M,B
+INX H
+MVI C,01H
+MOV M,C
+loopy: MOV A,B
+INX H
+ADD C
+MOV M,A
+MOV B,C
+MOV C,A
+DCR D
+JNZ loopy
+hlt
+
+LXI H,2200H
+LXI B,2300H
+MVI D,32H
+MVI E,00H
+snoopy: MOV A,M
+ANI 01H
+JZ loopy
+INR E
+MOV A,M
+STAX B
+INX B
+loopy: INX H
+DCR D
+JNZ snoopy
+MOV A,E
+STA 2400H
+HLT
