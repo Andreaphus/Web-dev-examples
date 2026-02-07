@@ -1,0 +1,113 @@
+<html>
+<head>
+<script>
+function isRequired(thisform)
+{
+var empty = false;
+
+if(thisform.Name.value=="")
+{
+alert("The name field is mandatory");
+empty=true;
+}
+if(empty==false && thisform.Phone.value=="");
+{
+alert("Phone is compulsary field");
+empty=true;
+}
+const country =document.getElementById('country').value;
+if(country=="")
+{
+alert("Country is compulsary field");
+empty=true;
+}
+
+const genderMale=document.getElementById('male').checked;
+const genderFemale=document.getElementById('female').checked;
+if(!genderMale && !genderFemale)
+{
+alert("select gender");
+empty=true;
+}
+
+var skills = document.getElementById("skills");
+var skillselected=false;
+for( var i=0;i<skills.options.length;i++)
+{
+if(skills.options[i].selected){
+skillselected=true;
+break;
+}
+}
+if (!skillselected)
+{
+alert("Please select one skill atleast");
+return false;
+}
+
+const chkagree=document.getElementById("agree").checked;
+if(!chkagree){
+alert("Please check agree checkbox");
+empty=true;
+}
+if(empty==false)
+{
+document.open();
+document.write("<html><head><title>Thank You</title></head><body><h3>Thank you for your info</h3></body></html>");
+document.close();
+}
+}
+
+function validzip(theField)
+{
+var theInput=theField.value;
+var theLength=theInput.length;
+var goodzip=true
+if(theLength!=5)
+{
+goodzip=false;
+}
+if(theLength==5)
+{
+for(var i=0;i<5;i++)
+{
+var theChar=theInput.substring(i,i+1);
+if(theChar<"0" || theChar>"9")
+{
+goodzip=false;
+}
+}
+}
+if(goodzip==false)
+{
+alert("This is not valid zip");
+}
+}
+</script>
+</head>
+<body>
+<form name="thisform">	
+<b><pre>
+Name:<input type="text" name="Name" size="30">
+Phone:<input type="text" name="Phone" size="30">
+zip code:<input type="text" name="zip" size="6" onblur="validzip(this.form.zip)";>
+County<select id=country>
+<option value=""> Select country</option>
+<option value="USA"> United states of america</option>
+<option value="Canada"> Canada</option>
+<option value="India"> IN</option>
+</select>
+Male<input type="radio" name="Male" value="Male" id="male">
+Female<input type="radio" name="Female" value="FeMale" id="female">
+
+skills:<select id="skills" multiple>
+<option value="Javascript" id=0>JavaScript</option>
+<option value="Java" id=1>Java</option>
+<option value="Python" id=2>Python</option>
+<option value="c++" id=3>C++</option>
+</select>
+
+Agree:<input type="checkbox" name="agree" id="agree">
+<input type="submit" onclick=isRequired(thisform)>
+</form> 
+</body>
